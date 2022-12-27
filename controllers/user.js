@@ -120,6 +120,7 @@ export const login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
+      // const token = jwt.sign({ _id: user._id }, 'super-secret-key', {
         expiresIn: '7d',
       });
       res.send({ token });
