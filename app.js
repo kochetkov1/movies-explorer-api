@@ -42,10 +42,12 @@ app.use(
   }),
 );
 
-app.use(rateLimit({
-  message: { message: errorMessages.rateLimit },
-  max: 100,
-}));
+app.use(
+  rateLimit({
+    message: { message: errorMessages.rateLimit },
+    max: 100,
+  }),
+);
 
 // Логгер запросов
 app.use(requestLogger);

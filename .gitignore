@@ -24,13 +24,12 @@ README_react.md
 .env.production.local
 **/.prettierrc
 
-**/.env
+.env
 
-/backend/error.log
-/backend/request.log
+error.log
+request.log
 
-/frontend/.prettierrc
-/backend/.prettierrc
+.prettierrc
 
 npm-debug.log*
 yarn-debug.log*
