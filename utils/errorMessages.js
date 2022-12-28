@@ -8,4 +8,5 @@ export const errorMessages = {
   movieBadRequest: 'Переданные данные фильма некорректны',
   movieNotFound: 'Такого фильма не существует',
   movieDeleteNotOwner: 'Недостаточно прав для удаления фильма',
+  rateLimit: 'Слишком много запросов',
 };

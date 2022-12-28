@@ -3,10 +3,12 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import rateLimit from 'express-rate-limit';
 import { constants } from 'http2';
 import { errors } from 'celebrate';
 import { indexRouter } from './routes/index.js';
 import { requestLogger, errorLogger } from './middlewares/logger.js';
+import { errorMessages } from './utils/errorMessages.js';
 
 const app = express();
 
@@ -39,6 +41,11 @@ app.use(
     allowedHeaders: ['Content-Type', 'Authorization'],
   }),
 );
+
+app.use(rateLimit({
+  message: { message: errorMessages.rateLimit },
+  max: 100,
+}));
 
 // Логгер запросов
 app.use(requestLogger);
