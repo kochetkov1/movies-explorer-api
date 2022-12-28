@@ -9,5 +9,5 @@ import {
 
 export const userRouter = Router();
 
-userRouter.get('/me', getCurrentUser);
+userRouter.get('/users/me', getCurrentUser);
 userRouter.patch('/me', userDescriptionValidator, updateUser);

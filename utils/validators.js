@@ -1,21 +1,28 @@
 import { celebrate, Joi } from 'celebrate';
 
-// убрать лишнее, написать новое
-
 const schemeObjectId = Joi.string().alphanum().hex().length(24);
 const schemeEmail = Joi.string().email();
 const schemeUrl = Joi.string().pattern(/^https?:\/\/(www.)?[a-zA-Z0-9-]+\.[a-zA-Z0-9]+[\w-._~:/?#[\]@!$'()*+,;=]*#?/);
 
 export const movieBodyValidator = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
-    link: schemeUrl.required(),
+    country: Joi.string().required(),
+    director: Joi.string().required(),
+    duration: Joi.number().required(),
+    year: Joi.string().required(),
+    description: Joi.string().required(),
+    image: schemeUrl.required(),
+    trailerLink: schemeUrl.required(),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
+    thumbnail: schemeUrl.required(),
+    movieId: schemeObjectId.required(),
   }),
 });
 
 export const movieIdValidator = celebrate({
   params: Joi.object().keys({
-    cardId: schemeObjectId.required(),
+    _id: schemeObjectId.required(),
   }),
 });
 
@@ -38,7 +45,7 @@ export const userLoginValidator = celebrate({
 
 export const userDescriptionValidator = celebrate({
   body: Joi.object().keys({
+    email: schemeEmail.required(),
     name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
   }),
 });

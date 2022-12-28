@@ -5,9 +5,7 @@ export const errorMessages = {
   needAuthorize: 'Необходимо авторизироваться',
   userNotFound: 'Такого пользователя не существует',
   userConflict: 'Этот email уже занят',
-  movieBadRequest: 'Переданные данные карточки некорректны',
-  movieNotFound: 'Такой карточки не существует',
-  movieDeleteNotOwner: 'Недостаточно прав для удаления карточки',
+  movieBadRequest: 'Переданные данные фильма некорректны',
+  movieNotFound: 'Такого фильма не существует',
+  movieDeleteNotOwner: 'Недостаточно прав для удаления фильма',
 };
-
-// Убрать лишнее, написать новое

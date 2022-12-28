@@ -3,8 +3,6 @@ import {
   getMovies,
   createMovie,
   deleteMovie,
-  // addLikeCard,
-  // deleteLikeCard,
 } from '../controllers/movies.js';
 import {
   movieIdValidator,
@@ -13,10 +11,6 @@ import {
 
 export const moviesRouter = Router();
 
-moviesRouter.get('/', getMovies);
-moviesRouter.post('/', movieBodyValidator, createMovie);
-moviesRouter.delete('/_id', movieIdValidator, deleteMovie);
-// moviesRouter.put('/:cardId/likes', cardIdValidator, addLikeCard);
-// moviesRouter.delete('/:cardId/likes', cardIdValidator, deleteLikeCard);
-
-// check
+moviesRouter.get('/movies', getMovies);
+moviesRouter.post('/movies', movieBodyValidator, createMovie);
+moviesRouter.delete('/movies/:_id', movieIdValidator, deleteMovie);
