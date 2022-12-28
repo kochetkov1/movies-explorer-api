@@ -55,10 +55,10 @@ export const createUser = (req, res, next) => {
 };
 
 export const updateUser = (req, res, next) => {
-  const { name } = req.body;
+  const { name, email } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
-    { name },
+    { name, email },
     { new: true, runValidators: true },
   )
     .then((user) => res.send(user))
