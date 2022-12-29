@@ -17,7 +17,7 @@ export const auth = (req, res, next) => {
     const { JWT_SECRET } = req.app.get('config');
     payload = jwt.verify(token, JWT_SECRET);
   } catch (err) {
-    next(new UnauthorizedError('Ошибка авторизации:', err.message));
+    throw (new UnauthorizedError('Ошибка авторизации:', err.message));
   }
   req.user = payload;
   return next();

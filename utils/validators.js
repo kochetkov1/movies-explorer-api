@@ -1,6 +1,6 @@
 import { celebrate, Joi } from 'celebrate';
 
-const schemeObjectId = Joi.string().alphanum().hex().length(24);
+const schemeObjectId = Joi.string().hex().length(24);
 const schemeEmail = Joi.string().email();
 const schemeUrl = Joi.string().pattern(/^https?:\/\/(www.)?[a-zA-Z0-9-]+\.[a-zA-Z0-9]+[\w-._~:/?#[\]@!$'()*+,;=]*#?/);
 
