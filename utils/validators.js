@@ -16,7 +16,7 @@ export const movieBodyValidator = celebrate({
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
     thumbnail: schemeUrl.required(),
-    movieId: schemeObjectId.required(),
+    movieId: Joi.number().required(),
   }),
 });
 
@@ -28,9 +28,7 @@ export const movieIdValidator = celebrate({
 
 export const userBodyValidator = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    avatar: schemeUrl,
+    name: Joi.string().min(2).max(30).required(),
     email: schemeEmail.required(),
     password: Joi.string().required(),
   }),

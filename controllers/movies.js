@@ -25,17 +25,20 @@ export const createMovie = (req, res, next) => {
 
 export const deleteMovie = (req, res, next) => {
   Movie.findById(req.params._id)
-    .then((document) => {
-      if (document) {
-        const movie = document.toObject();
-        if (movie.owner.toString() === req.user._id) {
-          document.remove();
-          res.send(movie);
-        } else next(new ForbiddenError(errorMessages.movieDeleteNotOwner));
-      } else next(new NotFoundError(errorMessages.movieNotFound));
+    .then((movie) => {
+      if (!movie) {
+        throw new NotFoundError(errorMessages.movieNotFound);
+      } else if (movie.owner.toString() !== req.user._id) {
+        throw new ForbiddenError(errorMessages.movieDeleteNotOwner);
+      } else {
+        return movie.remove();
+      }
+    })
+    .then((movie) => {
+      res.send(movie);
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new BadRequestError(errorMessages.movieBadRequest));
       } else {
         next(new ServerError(err.message));

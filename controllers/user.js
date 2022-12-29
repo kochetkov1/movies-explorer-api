@@ -27,17 +27,11 @@ export const getCurrentUser = (req, res, next) => {
 };
 
 export const createUser = (req, res, next) => {
-  const {
-    name,
-    email,
-    password,
-  } = req.body;
+  const { name, email, password } = req.body;
 
   bcrypt
     .hash(password, 10)
-    .then((hash) => User.create({
-      name, email, password: hash,
-    }))
+    .then((hash) => User.create({ name, email, password: hash }))
     .then((document) => {
       const user = document.toObject();
       delete user.password;
@@ -61,9 +55,17 @@ export const updateUser = (req, res, next) => {
     { name, email },
     { new: true, runValidators: true },
   )
-    .then((user) => res.send(user))
+    .then((user) => {
+      if (user) {
+        res.send(user);
+      } else {
+        next(new NotFoundError(errorMessages.userNotFound));
+      }
+    })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err.name === 'MongoServerError') {
+        next(new ConflictError(errorMessages.userConflict));
+      } else if (err.name === 'ValidationError') {
         next(new BadRequestError(errorMessages.userBadRequest));
       } else {
         next(new ServerError(err.message));
