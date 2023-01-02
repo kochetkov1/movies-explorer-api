@@ -23,15 +23,11 @@ export const createMovie = (req, res, next) => {
     });
 };
 
-// test
-const notFoundError = new NotFoundError(errorMessages.movieNotFound);
-
 export const deleteMovie = (req, res, next) => {
   Movie.findById(req.params._id)
     .then((movie) => {
       if (!movie) {
-        // test
-        throw notFoundError;
+        throw new NotFoundError(errorMessages.movieNotFound);
       } else if (movie.owner.toString() !== req.user._id) {
         throw new ForbiddenError(errorMessages.movieDeleteNotOwner);
       } else {
@@ -45,7 +41,7 @@ export const deleteMovie = (req, res, next) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new BadRequestError(errorMessages.movieBadRequest));
       } else {
-        next(new ServerError(err.message));
+        next(err);
       }
     });
 };
