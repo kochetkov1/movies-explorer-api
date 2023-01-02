@@ -44,6 +44,6 @@ export const userLoginValidator = celebrate({
 export const userDescriptionValidator = celebrate({
   body: Joi.object().keys({
     email: schemeEmail.required(),
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().min(2).max(30).required(),
   }),
 });

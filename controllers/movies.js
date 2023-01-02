@@ -6,7 +6,7 @@ import { ServerError } from '../errors/ServerError.js';
 import { errorMessages } from '../utils/errorMessages.js';
 
 export const getMovies = (req, res, next) => {
-  Movie.find({})
+  Movie.find({ owner: req.user._id })
     .then((movies) => res.send(movies))
     .catch((err) => next(new ServerError(err.message)));
 };
@@ -23,11 +23,15 @@ export const createMovie = (req, res, next) => {
     });
 };
 
+// test
+const notFoundError = new NotFoundError(errorMessages.movieNotFound);
+
 export const deleteMovie = (req, res, next) => {
   Movie.findById(req.params._id)
     .then((movie) => {
       if (!movie) {
-        throw new NotFoundError(errorMessages.movieNotFound);
+        // test
+        throw notFoundError;
       } else if (movie.owner.toString() !== req.user._id) {
         throw new ForbiddenError(errorMessages.movieDeleteNotOwner);
       } else {
